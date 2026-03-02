@@ -31,7 +31,7 @@ The implementation uses priority-based logic:
 What the code actually does:
 
 - **Variable filtering** — If a tag has a variable name (e.g. `@var Admin $adm`) and it does not match the variable being resolved, that tag is ignored.
-- **Union types** — The type string is split on `|` and built as a union. The type is taken as the **first whitespace-separated token** of the tag value, so the union must be in that single token: `string|int` works, but `string | int` does not (only `string` would be used).
+- **Union types** — The type string is split on `|` and built as a union. The type is taken as the first whitespace-separated token of the tag value, so the union must be in that single token: `string|int` works, but `string | int` does not (only `string` would be used).
 - **Nullable** — `?User` is one token and kept as a single type name, `User|null` is one token, split on `|`, so parsed as a union.
 - **Generic and shaped types** — Not parsed. The type is whatever is in the first token. If that token is e.g. `array<int,string>` (no space after comma), it is passed through as-is. If the type contains spaces (e.g. `array<int, string>`), only the part before the first space is used.
 - **Unnamed @var** — A tag with no `$variableName` is used as a fallback for the variable being inspected (first such tag wins).

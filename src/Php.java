@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 interface PhpType {}
@@ -29,15 +30,11 @@ class TypeFactory {
         return new PhpType() {
             @Override
             public String toString() {
-                StringBuilder sb = new StringBuilder("UnionType(");
-                for (int i = 0; i < types.size(); i++) {
-                    sb.append(types.get(i).toString());
-                    if (i < types.size() - 1) {
-                        sb.append(", ");
-                    }
+                List<String> names = new ArrayList<>();
+                for (PhpType t : types) {
+                    names.add(t.toString());
                 }
-                sb.append(")");
-                return sb.toString();
+                return "UnionType(" + String.join(", ", names) + ")";
             }
         };
     }
