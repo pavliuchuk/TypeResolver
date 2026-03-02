@@ -11,9 +11,11 @@ public class TypeResolver {
 
         String targetName = variable.getName();
         List<DocTag> varTags = docBlock.getTagsByName("@var");
+        if (varTags == null) {
+            return TypeFactory.createType("mixed");
+        }
 
         PhpType unnamedFallback = null;
-
         for (DocTag tag : varTags) {
             String value = tag.getValue().trim();
             if (value.isEmpty())
